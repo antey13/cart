@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link CartResource} REST controller.
  */
 @SpringBootTest(classes = { SecurityBeanOverrideConfiguration.class, CartApp.class })
-
 @AutoConfigureMockMvc
 @WithMockUser
 public class CartResourceIT {
@@ -84,7 +83,6 @@ public class CartResourceIT {
     @Test
     public void createCart() throws Exception {
         int databaseSizeBeforeCreate = cartRepository.findAll().size();
-
         // Create the Cart
         restCartMockMvc.perform(post("/api/carts").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -148,7 +146,6 @@ public class CartResourceIT {
             .andExpect(jsonPath("$.productTitle").value(DEFAULT_PRODUCT_TITLE))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT));
     }
-
     @Test
     public void getNonExistingCart() throws Exception {
         // Get the cart
@@ -187,8 +184,6 @@ public class CartResourceIT {
     @Test
     public void updateNonExistingCart() throws Exception {
         int databaseSizeBeforeUpdate = cartRepository.findAll().size();
-
-        // Create the Cart
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCartMockMvc.perform(put("/api/carts").with(csrf())
